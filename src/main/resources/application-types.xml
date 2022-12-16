@@ -18,4 +18,5 @@ type modelDistrito = Array<{|  id: String,   nombre: String,   slug: String,   e
       </types:output-event>
     </types:processor-declaration>
   </types:enrichment>
+  <types:enrichment select="#78b6d7dd-9d19-4ba1-bac1-ad3a2d183f3b"/>
 </types:mule>
