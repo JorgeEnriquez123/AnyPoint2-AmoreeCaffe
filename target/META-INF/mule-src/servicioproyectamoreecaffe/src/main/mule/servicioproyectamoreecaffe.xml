@@ -31,18 +31,54 @@ payload map ( payload01 , indexOfPayload01 ) -> {
 			</ee:message>
 		</ee:transform>
 	</flow>
-	<flow name="servicioproyectamoreecaffeFlow" doc:id="a8a71848-4fe9-404a-983e-4fe4e5f14c8a" >
+	<flow name="DistritoINSERT" doc:id="a8a71848-4fe9-404a-983e-4fe4e5f14c8a" >
 		<http:listener doc:name="Listener" doc:id="3e972ec5-2874-465d-9907-1173859003a6" config-ref="HTTP_Listener_config" path="/distrito/create"/>
 		<db:insert doc:name="Insert" doc:id="5ca89354-d4b5-433b-a3e4-7c3cab417764" config-ref="Database_Config">
-			<db:sql ><![CDATA[INSERT INTO distritos (id, estado, nombre, slug) VALUES (:id, :estado, :nombre, :slug);]]></db:sql>
+			<db:sql ><![CDATA[INSERT INTO distritos (id, estado, nombre, slug) VALUES ((SELECT UUID()), :estado, :nombre, :slug);]]></db:sql>
 			<db:input-parameters ><![CDATA[#[{
-	id: payload.id,
 	estado: payload.estado,
 	nombre: payload.nombre,
 	slug: payload.slug
 }]]]></db:input-parameters>
 		</db:insert>
 		<ee:transform doc:name="Transform Message" doc:id="78b6d7dd-9d19-4ba1-bac1-ad3a2d183f3b" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="DistritoUPDATE" doc:id="34d9b6e3-4b22-4d28-a3e9-5396750ea9fd" >
+		<http:listener doc:name="Listener" doc:id="9094df01-70bc-41e1-8152-b439dbb10dc1" config-ref="HTTP_Listener_config" path="/distrito/update/{id}" allowedMethods="PUT"/>
+		<db:update doc:name="Update" doc:id="ceb4b76c-5ac8-4ee5-a42f-22d57a442264" config-ref="Database_Config">
+			<db:sql ><![CDATA[update distritos set estado = :estado, nombre = :nombre, slug = :slug where id = :id]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{
+	id: attributes.uriParams.id,
+	estado: payload.estado,
+	nombre: payload.nombre,
+	slug: payload.slug
+}]]]></db:input-parameters>
+		</db:update>
+		<ee:transform doc:name="Transform Message" doc:id="7c355181-30ac-40c7-9f74-9bcf21763ce8" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="DistritoDELETE" doc:id="b189b8e0-8693-4838-9ce7-a6896ecfd3bc" >
+		<http:listener doc:name="Listener" doc:id="5bf3041e-c628-47c3-a1c0-1bc5635ca833" config-ref="HTTP_Listener_config" path="/distrito/delete/{id}" allowedMethods="DELETE"/>
+		<db:delete doc:name="Delete" doc:id="2ebb7831-9330-4b48-8098-d57af4ea4aad" config-ref="Database_Config">
+			<db:sql ><![CDATA[delete from distritos where id = :id;]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{
+	id: attributes.uriParams.id
+}]]]></db:input-parameters>
+		</db:delete>
+		<ee:transform doc:name="Transform Message" doc:id="ac70e394-fc0d-4463-a280-3070aecc5aad" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
