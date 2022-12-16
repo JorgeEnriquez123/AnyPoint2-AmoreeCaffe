@@ -51,7 +51,7 @@ payload]]></ee:set-payload>
 		</ee:transform>
 	</flow>
 	<flow name="DistritoUPDATE" doc:id="34d9b6e3-4b22-4d28-a3e9-5396750ea9fd" >
-		<http:listener doc:name="Listener" doc:id="9094df01-70bc-41e1-8152-b439dbb10dc1" config-ref="HTTP_Listener_config" path="/distrito/update/{id}" allowedMethods="PUT"/>
+		<http:listener doc:name="Listener" doc:id="9094df01-70bc-41e1-8152-b439dbb10dc1" config-ref="HTTP_Listener_config" path="/distrito/update/{id}" allowedMethods="PATCH"/>
 		<db:update doc:name="Update" doc:id="ceb4b76c-5ac8-4ee5-a42f-22d57a442264" config-ref="Database_Config">
 			<db:sql ><![CDATA[update distritos set estado = :estado, nombre = :nombre, slug = :slug where id = :id]]></db:sql>
 			<db:input-parameters ><![CDATA[#[{
@@ -84,6 +84,90 @@ payload]]></ee:set-payload>
 output application/json
 ---
 payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="CargoDELETE" doc:id="a48416ab-8bb6-4fb2-bc4a-d484c006d35a" >
+		<http:listener doc:name="Listener" doc:id="f4274dee-2ed3-42c6-9881-9f110a754d76" config-ref="HTTP_Listener_config" path="/cargo/delete/{id}" allowedMethods="DELETE" />
+		<db:delete doc:name="Delete" doc:id="8f684fc3-785d-4b40-9eeb-f9f488fa029c" config-ref="Database_Config" >
+			<db:sql ><![CDATA[delete from cargos where id = :id;]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{
+	id: attributes.uriParams.id
+}]]]></db:input-parameters>
+		</db:delete>
+		<ee:transform doc:name="Transform Message" doc:id="ef968f53-2320-485a-9e85-611dfaf06c76" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="CargoUPDATE" doc:id="de208a67-b8a2-4fe5-b9de-fed33938423f" >
+		<http:listener doc:name="Listener" doc:id="d52c6ae7-4df7-4259-9f4e-d0aeceffc1fc" config-ref="HTTP_Listener_config" path="/cargo/update/{id}" allowedMethods="PATCH" />
+		<db:update doc:name="Update" doc:id="0cae45d1-325e-4df9-b58b-2d5138602371" config-ref="Database_Config" >
+			<db:sql ><![CDATA[update cargos set
+ estado = :estado, nombre = :nombre,
+  slug = :slug , descripcion= :descripcion
+  
+  where id = :id]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{
+	id: attributes.uriParams.id,
+	estado: payload.estado,
+	nombre: payload.nombre,
+	slug: payload.slug,
+	descripcion: payload.descripcion
+}]]]></db:input-parameters>
+		</db:update>
+		<ee:transform doc:name="Transform Message" doc:id="7aa0d32e-0511-4dc7-8cc4-f56b2bf9efcf" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="CargoINSERT" doc:id="def6d180-5745-4772-9ac4-6bee7f1c4612" >
+		<http:listener doc:name="Listener" doc:id="8bac3f73-71f2-4f24-8556-6121be319c4c" config-ref="HTTP_Listener_config" path="/cargo/create" />
+		<db:insert doc:name="Insert" doc:id="8f6a76d3-5971-4299-9b69-602512abe643" config-ref="Database_Config" >
+			<db:sql ><![CDATA[INSERT INTO cargos (id, estado,
+ nombre, slug, descripcion) VALUES 
+ ((SELECT UUID()), :estado, :nombre, 
+ :slug, :descripcion);]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{
+	estado: payload.estado,
+	nombre: payload.nombre,
+	slug: payload.slug,
+	descripcion: payload.descripcion
+}]]]></db:input-parameters>
+		</db:insert>
+		<ee:transform doc:name="Transform Message" doc:id="281f0429-0778-4ff2-bad4-2e6630978768" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="CargoSELECT" doc:id="05a69fc3-ea09-4061-a85c-b8b3ce746825">
+		<http:listener doc:name="Mostrar Cargo" doc:id="fb1beab7-bd01-4ed2-a0b5-624f9094cc95" config-ref="HTTP_Listener_config" path="/cargo" />
+		<db:select doc:name="findAll" doc:id="b936b277-347b-4df2-b295-c9de6c6955ec" config-ref="Database_Config">
+			<db:sql><![CDATA[Select * from cargos]]></db:sql>
+		</db:select>
+		<ee:transform doc:name="Transform Message" doc:id="2a102c41-c94c-40f3-837e-7fc66638507c">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload map ( payload01 , indexOfPayload01 ) -> {
+	id: (payload01.id default ""),
+	nombre: (payload01.nombre default ""),
+	slug: (payload01.slug default ""),
+	estado: payload01.estado
+}]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 	</flow>
