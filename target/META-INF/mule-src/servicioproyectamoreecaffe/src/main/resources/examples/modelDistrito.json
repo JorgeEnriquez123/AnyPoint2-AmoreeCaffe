@@ -1,0 +1,20 @@
+[
+    {
+        "id": "0d90675a-712a-4658-b3c5-f70281799631",
+        "nombre": "san miguel",
+        "slug": "san_miguel",
+        "estado": true
+    },
+    {
+        "id": "5e83ae93-5178-4bc0-903e-18e2d944bf63",
+        "nombre": "puente piedra",
+        "slug": "puente_piedra",
+        "estado": true
+    },
+    {
+        "id": "d4c4e326-2f37-40ea-b4c5-47660902a086",
+        "nombre": "bellavista",
+        "slug": "bellavista",
+        "estado": true
+    }
+]
