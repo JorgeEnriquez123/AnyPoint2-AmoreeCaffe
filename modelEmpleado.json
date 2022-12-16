@@ -1,0 +1,14 @@
+[
+    {
+        "id": "443bb211-5fea-4591-b8fa-3d07bc0e89f3",
+        "nombre": "ricardo",
+        "apellido": "mendoza",
+        "dni": "90022260",
+        "telefono": "900333222",
+        "direccion": "mz m7 ##",
+        "id_distrito": "5e83ae93-5178-4bc0-903e-18e2d944bf63",
+        "id_cargo": "cf094646-39cd-46ab-8866-1dc303ba6490",
+        "estado": true
+    }
+]
+

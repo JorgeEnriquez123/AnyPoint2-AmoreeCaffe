@@ -1,0 +1,9 @@
+[
+    {
+        "id": "01435770-b4ec-48a6-aa5d-b10a88886e95",
+        "tipo": "BOLETA",
+        "nroComprobante": "12345696344",
+        "id_venta": "8a71ecf2-9344-4b0e-b949-7074c9886827",
+        "estado": true
+    }
+]

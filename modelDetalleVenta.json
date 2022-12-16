@@ -1,0 +1,10 @@
+[
+    {
+        "id_cabventa": "772bcbbc-c6c0-46ac-8aa7-4498bfce3902",
+        "id_producto": "80cf04fd-e7bb-4030-b92f-6880db634d82",
+        "precio_producto": 2.5,
+        "cantidad": 5,
+        "subtotal": 12.5,
+        "estado": true
+    }
+]

@@ -1,0 +1,11 @@
+[
+    {
+        "id": "80cf04fd-e7bb-4030-b92f-6880db634d82",
+        "nombre": "coca cola",
+        "slug": "coca_cola",
+        "precio": 2.5,
+        "cantidad": 20,
+        "id_categoria": "14c61876-1f21-4c2a-a86c-7f6fe8d4a830",
+        "estado": true
+    }
+]

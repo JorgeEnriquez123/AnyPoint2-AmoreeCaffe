@@ -1,0 +1,23 @@
+[
+    {
+        "id": "0dc6d42d-b925-4919-9545-1b20132bd243",
+        "nombre": "admin",
+        "slug": "admin",
+        "descripcion": "admin",
+        "estado": true
+    },
+    {
+        "id": "70a9328f-ab35-4a89-984b-3fa93ca4ca69",
+        "nombre": "user",
+        "slug": "user",
+        "descripcion": "user",
+        "estado": true
+    },
+    {
+        "id": "cf094646-39cd-46ab-8866-1dc303ba6490",
+        "nombre": "super-user",
+        "slug": "super-user",
+        "descripcion": "super-user",
+        "estado": true
+    }
+]
