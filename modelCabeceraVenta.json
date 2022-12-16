@@ -1,0 +1,11 @@
+[ 
+    {
+        "id": "772bcbbc-c6c0-46ac-8aa7-4498bfce3902",
+        "id_cliente":  "980d1dc8-4b1b-4952-847e-1f84bf4aebbb",
+        "id_empleado": "8a67591b-c225-4032-9dad-96203cbc0b48",
+        "total": 12.5,
+        "fecha": "2022-12-02T03:57:18.000+00:00",
+        "estado": true
+    }
+]
+

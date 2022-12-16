@@ -1,0 +1,12 @@
+[
+    {
+        "id": "223701f6-72a9-40c9-b43a-fcf8589cfc98",
+        "nombre": "juan",
+        "apellido": "perez",
+        "dni": "12345678",
+        "telefono": "987654321",
+        "direccion": "mz m1 ##",
+        "id_distrito": "5e83ae93-5178-4bc0-903e-18e2d944bf63",
+        "estado": true
+    }
+]
